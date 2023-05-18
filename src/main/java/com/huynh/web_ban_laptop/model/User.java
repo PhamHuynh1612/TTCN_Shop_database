@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 public class User {
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     @Lob

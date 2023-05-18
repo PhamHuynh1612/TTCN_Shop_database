@@ -15,7 +15,7 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     void updateUser(@NonNull String email, @NonNull String name, String password, String phoneNumber, String address, Boolean active, @NonNull Integer id);
 
     @Query("select count(*) from User WHERE email = ?1 or phoneNumber = ?2")
-    Boolean isUserExist(String email, String phoneNumber);
+    Long isUserExist(String email, String phoneNumber);
 
     @Query("select email, name, address, phoneNumber from User where id = ?1")
     User getUserInfo(String id);

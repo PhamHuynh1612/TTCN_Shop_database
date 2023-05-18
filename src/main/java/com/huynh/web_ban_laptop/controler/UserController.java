@@ -12,6 +12,7 @@ import java.util.Iterator;
 
 @Controller
 @RequestMapping(path = "/user")
+@CrossOrigin
 public class UserController {
 
     // Học về Dependencies Injection (nâng cao)
@@ -21,7 +22,8 @@ public class UserController {
     // Lấy tất cả người dùng
     // Học về Java collection
     // ArrayList-> List -> Iterator
-    @GetMapping("/all")
+    @CrossOrigin
+    @RequestMapping(value = "/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Iterable<User> getUsers() {
         return repository.findAll();
     }
@@ -69,17 +71,17 @@ public class UserController {
             }
     )
 
-    public @ResponseBody String addUser(String email, String name, String password, String phoneNuber, String address, Integer active) {
-        boolean isUserExist = repository.isUserExist(email, phoneNuber);
-        if (isUserExist) {
-            return "User exist";
+    public @ResponseBody String addUser(String email, String name, String password, String phoneNumber, String address, Integer active) {
+        Long isUserExist = repository.isUserExist(email, phoneNumber);
+        if (isUserExist > 0) {
+            return "Add user failed";
         }
 
         User user = new User();
         user.setEmail(email);
         user.setName(name);
         user.setPassword(password);
-        user.setPhoneNumber(phoneNuber);
+        user.setPhoneNumber(phoneNumber);
         user.setAddress(address);
         user.setActive(active != 0);
 
