@@ -1,11 +1,17 @@
 package com.huynh.web_ban_laptop.repository;
 
+
 import com.huynh.web_ban_laptop.model.User;
+import jakarta.persistence.Convert;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.lang.NonNull;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public interface UserRepository extends CrudRepository<User, Integer> {
     @Transactional
@@ -17,6 +23,20 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     @Query("select count(*) from User WHERE email = ?1 or phoneNumber = ?2")
     Long isUserExist(String email, String phoneNumber);
 
-    @Query("select email, name, address, phoneNumber from User where id = ?1")
-    User getUserInfo(String id);
+    @Query(value = "select id, email, name, phone_number, address, active from User  where email = :email or phone_number = :phoneNumber and password = :password ", nativeQuery = true)
+    List<Map<String, Object>> getUserInfo(String email, String phoneNumber, String password);
+
+
+/*    @Override
+    @Query(value = "insert into us")
+    default <S extends User> S save(S entity) {
+        return null;
+    }
+
+    @Query(
+           value = "insert into user values {}"
+    )
+    List<Map<String, Object>> addUserWithEmail(String email, String password);
+
+ */
 }

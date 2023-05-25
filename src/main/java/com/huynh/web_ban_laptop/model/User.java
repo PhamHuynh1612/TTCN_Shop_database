@@ -1,39 +1,46 @@
 package com.huynh.web_ban_laptop.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonRawValue;
 import jakarta.persistence.*;
+import org.hibernate.annotations.SQLInsert;
 
 @Entity
 @Table(name = "user", schema = "ban_laptop")
 public class User {
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "id", nullable = true)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     @Lob
-    @Column(name = "email", nullable = false)
+    @Column(name = "email")
     private String email;
 
+
     @Lob
-    @Column(name = "name", nullable = false)
+    @Column(name = "name")
     private String name;
+
 
     @Lob
     @JsonIgnore
-    @Column(name = "password", nullable = false)
+    @Column(name = "password")
     private String password;
 
+
     @Lob
-    @Column(name = "phone_number", nullable = false)
+    @Column(name = "phone_number")
     private String phoneNumber;
 
+
     @Lob
-    @Column(name = "address", nullable = false)
+    @Column(name = "address")
     private String address;
 
-    @Column(name = "active", nullable = false)
-    private Boolean active = false;
+    @JsonRawValue
+    @Column(name = "active")
+    private Integer active = 0;
 
     public Integer getId() {
         return id;
@@ -83,11 +90,11 @@ public class User {
         this.address = address;
     }
 
-    public Boolean getActive() {
+    public Integer getActive() {
         return active;
     }
 
-    public void setActive(Boolean active) {
+    public void setActive(Integer active) {
         this.active = active;
     }
 
