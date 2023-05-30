@@ -1,5 +1,8 @@
 package com.huynh.web_ban_laptop.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.huynh.web_ban_laptop.model.enums.ProductType;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -15,9 +18,10 @@ public class Product {
     @Column(name = "id", nullable = false)
     private Integer id;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
-    private Productcategory category;
+    private ProductCategory category;
 
     @Lob
     @Column(name = "name", nullable = false)
@@ -28,7 +32,7 @@ public class Product {
     private String description;
 
     @Column(name = "active", nullable = false)
-    private Boolean active = false;
+    private Integer active;
 
     @Lob
     @Column(name = "display_image", nullable = false)
@@ -37,16 +41,23 @@ public class Product {
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
 
-    @Column(name = "price", nullable = false, precision = 10)
-    private BigDecimal price;
+    @Column(name = "price", nullable = false)
+    private Integer price;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "color_id", nullable = false)
     private Color color;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "size_id", nullable = false)
     private Size size;
+
+
+    @JsonIgnore
+    @Column(name = "type", nullable = false)
+    private ProductType productType;
 
     public Integer getId() {
         return id;
@@ -56,11 +67,11 @@ public class Product {
         this.id = id;
     }
 
-    public Productcategory getCategory() {
+    public ProductCategory getCategory() {
         return category;
     }
 
-    public void setCategory(Productcategory category) {
+    public void setCategory(ProductCategory category) {
         this.category = category;
     }
 
@@ -80,11 +91,11 @@ public class Product {
         this.description = description;
     }
 
-    public Boolean getActive() {
+    public Integer getActive() {
         return active;
     }
 
-    public void setActive(Boolean active) {
+    public void setActive(Integer active) {
         this.active = active;
     }
 
@@ -104,11 +115,11 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public BigDecimal getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 
@@ -128,4 +139,11 @@ public class Product {
         this.size = size;
     }
 
+    public ProductType getProductType() {
+        return productType;
+    }
+
+    public void setProductType(ProductType productType) {
+        this.productType = productType;
+    }
 }

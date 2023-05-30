@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "productcategory", schema = "ban_laptop")
-public class Productcategory {
+public class ProductCategory {
     @Id
     @Column(name = "id", nullable = false)
     private Integer id;
@@ -14,11 +14,8 @@ public class Productcategory {
     private String name;
 
     @Lob
-    @Column(name = "description")
-    private String description;
-
     @Column(name = "active", nullable = false)
-    private Boolean active = false;
+    private Integer active;
 
     public Integer getId() {
         return id;
@@ -36,19 +33,11 @@ public class Productcategory {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Boolean getActive() {
+    public Integer getActive() {
         return active;
     }
 
-    public void setActive(Boolean active) {
+    public void setActive(Integer active) {
         this.active = active;
     }
 
