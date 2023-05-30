@@ -3,93 +3,86 @@ package com.huynh.web_ban_laptop.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "cartitem", schema = "ban_laptop", indexes = {
-        @Index(name = "color_id", columnList = "color_id"),
-        @Index(name = "product_id", columnList = "product_id"),
-        @Index(name = "session_id", columnList = "session_id"),
-        @Index(name = "size_id", columnList = "size_id")
-})
+@Table(name = "cartitem", schema = "ban_laptop")
 public class Cartitem {
     @Id
     @Column(name = "id", nullable = false)
-    private Integer id;
+    private int id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "product_id", nullable = false)
-    private Product product;
+    @Column(name = "product_id", nullable = false)
+    private int productId;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "session_id", nullable = false)
-    private Shoppingsession session;
+    @Column(name = "session_id", nullable = false)
+    private int sessionId;
 
     @Column(name = "user_id", nullable = false)
-    private Integer userId;
+    private int userId;
 
     @Column(name = "quantity", nullable = false)
-    private Integer quantity;
+    private int quantity;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "size_id", nullable = false)
-    private Size size;
+    @Column(name = "size_id", nullable = false)
+    private int sizeId;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "color_id", nullable = false)
-    private Color color;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Product getProduct() {
-        return product;
+    public int getProductId() {
+        return productId;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
-    public Shoppingsession getSession() {
-        return session;
+    public int getSessionId() {
+        return sessionId;
     }
 
-    public void setSession(Shoppingsession session) {
-        this.session = session;
+    public void setSessionId(int sessionId) {
+        this.sessionId = sessionId;
     }
 
-    public Integer getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 
-    public Integer getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Integer quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
-    public Size getSize() {
-        return size;
+    public int getSizeId() {
+        return sizeId;
     }
 
-    public void setSize(Size size) {
-        this.size = size;
+    public void setSizeId(int sizeId) {
+        this.sizeId = sizeId;
     }
 
-    public Color getColor() {
-        return color;
+    public int getColorId() {
+        return colorId;
     }
 
-    public void setColor(Color color) {
-        this.color = color;
+    public void setColorId(int colorId) {
+        this.colorId = colorId;
     }
+
+    @Column(name = "color_id", nullable = false)
+    private int colorId;
+
 
 }
