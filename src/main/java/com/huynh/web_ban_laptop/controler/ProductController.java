@@ -1,6 +1,7 @@
 package com.huynh.web_ban_laptop.controler;
 
 import com.huynh.web_ban_laptop.model.Product;
+import com.huynh.web_ban_laptop.model.User;
 import com.huynh.web_ban_laptop.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
