@@ -7,10 +7,10 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface ProductRepository extends CrudRepository<Product, Integer> {
-    @Query(value = "select p.* from Product p where p.type = 'saleProduct'", nativeQuery = true)
+    @Query(value = "select p.* from product p where p.type = 'saleProduct' limit 12", nativeQuery = true)
    Iterable<Product> getSaleProducts();
 
-    @Query(value = "select p.* from Product p where p.type = 'recommendProduct'", nativeQuery = true)
+    @Query(value = "select p.* from product p where p.type = 'recommendProduct' limit 12", nativeQuery = true)
     Iterable<Product> getRecommendProducts();
 
     @Query(value = "select p.* from product p where p.category_id = :categoryId", nativeQuery = true)
