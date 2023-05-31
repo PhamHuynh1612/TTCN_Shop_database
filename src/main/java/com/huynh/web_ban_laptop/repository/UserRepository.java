@@ -23,7 +23,7 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     @Query("select count(*) from User WHERE email = ?1 or phoneNumber = ?2")
     Long isUserExist(String email, String phoneNumber);
 
-    @Query(value = "select id, email, name, phone_number, address, active from User  where email = :email or phone_number = :phoneNumber and password = :password ", nativeQuery = true)
+    @Query(value = "select id, email, name, phone_number, address, active from user  where (email = :email or phone_number = :phoneNumber) and password = :password ", nativeQuery = true)
     List<Map<String, Object>> getUserInfo(String email, String phoneNumber, String password);
 
 

@@ -41,25 +41,19 @@ public class UserController {
 
 
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Object login(String email, String phoneNumber, String password)  {
-        System.out.println(email);
-        System.out.println(password);
-        List<Map<String, Object>> result = repository.getUserInfo(email,phoneNumber, password);
+    public @ResponseBody Object login(String email, String phoneNumber, String password) {
+
+        if(password == null) {
+            return "null";
+        }
+
+        List<Map<String, Object>> result = repository.getUserInfo(email, phoneNumber, password);
 
         if (result.size() == 0) {
             return "null";
         }
-        return  result.get(0);
+        return result.get(0);
     }
-
-
-    // Học về POST, GET, DELETE, ... trong HTML
-    // Dùng Postman để POST, hoặc dùng CURL nếu thích
-    // Json là gì
-    // API là gì
-    // Viết tiếp các thêm sửa xóa khác
-
-    //Edit user information
     @RequestMapping(
             path = "/edit",
             method = RequestMethod.POST,
@@ -101,7 +95,7 @@ public class UserController {
         }
 
         if (phoneNumber != null) {
-             phoneNumber = phoneNumber.replaceAll("\"", "");
+            phoneNumber = phoneNumber.replaceAll("\"", "");
         }
 
         if (address != null) {
