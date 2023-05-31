@@ -35,4 +35,12 @@ public class ProductController {
     Iterable<Product> getRecommendProducts() {
         return productRepository.getRecommendProducts();
     }
+
+    @GetMapping(value = "/{productId}")
+    @ResponseBody
+    Product getProductById(@PathVariable("productId") Integer productId) {
+        var result = productRepository.findById(productId);
+        return result.orElse(null);
+    }
+
 }
