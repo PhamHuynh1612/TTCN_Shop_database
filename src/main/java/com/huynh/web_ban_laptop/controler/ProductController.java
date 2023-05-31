@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @CrossOrigin
 @RequestMapping("/product")
@@ -42,6 +44,13 @@ public class ProductController {
     Product getProductById(@PathVariable("productId") Integer productId) {
         var result = productRepository.findById(productId);
         return result.orElse(null);
+    }
+
+    @GetMapping(value = "/category/{categoryId}")
+    @ResponseBody
+    Iterable<Product> getProductsByCategory(@PathVariable("categoryId") Integer categoryId) {
+        var result = productRepository.getProductsByCategoryId(categoryId);
+        return result;
     }
 
 }
