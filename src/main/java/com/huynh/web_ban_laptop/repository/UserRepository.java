@@ -17,8 +17,8 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     @Transactional
     @Modifying
     @Query("""
-            update User u set u.email = ?1, u.name = ?2, u.password = ?3, u.phoneNumber = ?4, u.address = ?5, u.active = ?6 where u.id = ?7""")
-    void updateUser(@NonNull String email, @NonNull String name, String password, String phoneNumber, String address, Boolean active, Integer id);
+            update User u set u.email = ?1, u.name = ?2, u.password = ?3, u.phoneNumber = ?4, u.address = ?5, u.active = ?6 where u.id = ?7 and u.password = ?3""")
+    void updateUser(@NonNull String email, @NonNull String name, String password, String phoneNumber, String address, Integer active, Integer id);
 
     @Query("select count(*) from User WHERE email = ?1 or phoneNumber = ?2")
     Long isUserExist(String email, String phoneNumber);

@@ -24,7 +24,6 @@ public class User {
 
 
     @Lob
-    @JsonIgnore
     @Column(name = "password")
     private String password;
 

@@ -1,5 +1,7 @@
 package com.huynh.web_ban_laptop.controler;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.huynh.web_ban_laptop.model.User;
 import com.huynh.web_ban_laptop.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +35,8 @@ public class UserController {
     @GetMapping(path = "/{id}")
     public User getUser(@PathVariable String id) {
         try {
-            return repository.findById(Integer.parseInt(id)).get();
+            var result =  repository.findById(Integer.parseInt(id));
+            return result.orElse(null);
         } catch (Exception e) {
             return new User();
         }
@@ -43,6 +46,9 @@ public class UserController {
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Object login(String email, String phoneNumber, String password) {
 
+        System.out.println(email);
+        System.out.println(phoneNumber);
+        System.out.println(password);
         if(password == null) {
             return "null";
         }
@@ -56,19 +62,21 @@ public class UserController {
     }
     @RequestMapping(
             path = "/edit",
-            method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
-            produces = {
-                    MediaType.APPLICATION_ATOM_XML_VALUE,
-                    MediaType.APPLICATION_JSON_VALUE
-            })
-    public @ResponseBody String editUser(Integer id, String name, String password, String email, String phoneNumber, String address, Integer active) {
-        try {
-            repository.updateUser(email, name, password, phoneNumber, address, active != 0, id);
-            return "User updated successfully";
-        } catch (Exception e) {
-            return "Error: " + e;
-        }
+            method = RequestMethod.POST)
+    public @ResponseBody Object editUser(@RequestBody String json) throws JsonProcessingException {
+        System.out.println(json);
+        ObjectMapper mapper = new ObjectMapper();
+        User user = mapper.readValue(json, User.class);
+        System.out.println(user.getPassword());
+        user.setPassword(user.getPassword().replaceAll("\"", ""));
+            try {
+                repository.save(user);
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+            return Map.of(
+                    "message" , "Update success"
+            );
     }
 
     //Add new user
